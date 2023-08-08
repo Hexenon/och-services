@@ -1,9 +1,13 @@
 import * as crypto from "crypto";
 import { config } from "../config";
 
-const password = config.appKey;
 const salt = crypto.randomBytes(16);
-const key = crypto.pbkdf2Sync(password, salt, 100000, 32, "sha256");
+// const key = crypto.pbkdf2Sync(password, salt, 100000, 32, "sha256");
+const key = crypto
+  .createHash("sha256")
+  .update(String(config.appKey))
+  .digest("base64")
+  .substring(0, 32);
 
 /**
  * Encrypts a message using the application key.

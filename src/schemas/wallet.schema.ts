@@ -5,7 +5,7 @@ import { encrypt, decrypt } from "../utils/crypto";
 
 export type WalletDocument = HydratedDocument<Wallet>;
 
-export interface RPCConfig {
+export class RPCConfig {
   url: string;
   chainId: number;
 }
@@ -16,7 +16,7 @@ export class Wallet {
   name: string;
 
   @Prop({ required: true })
-  privateKey: string;
+  seed: string;
 
   @Prop({ required: true })
   address: string;
@@ -30,10 +30,14 @@ export class Wallet {
 
 export const WalletSchema = SchemaFactory.createForClass(Wallet);
 WalletSchema.pre<WalletDocument>("save", function (next) {
-  this.privateKey = encrypt(this.privateKey);
+  if (this.seed) {
+    this.seed = encrypt(this.seed);
+  }
   next();
 });
 
 WalletSchema.post<WalletDocument>("init", function () {
-  this.privateKey = decrypt(this.privateKey);
+  if (this.seed) {
+    this.seed = decrypt(this.seed);
+  }
 });

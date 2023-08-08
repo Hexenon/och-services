@@ -10,6 +10,7 @@ import { ThrottlerModule } from "@nestjs/throttler";
 import { MailModule } from "./mail/mail.module";
 import { BullModule } from "@nestjs/bull";
 import { ProfileModule } from "./profile/profile.module";
+import { AuthService } from "./auth/auth.service";
 const redisUrl = new URL(process.env.REDIS_URL);
 
 @Module({
