@@ -5,7 +5,7 @@ import { Model } from "mongoose";
 import { RPCConfig, Wallet } from "../schemas/wallet.schema";
 import { ethers } from "ethers";
 import { encrypt } from "../utils/crypto";
-import { AuthGuard } from "../resources/guards/auth.guard";
+import { LocalAuthGuard } from "../resources/guards/auth.guard";
 import { AuthService } from "../auth/auth.service";
 import { User } from "../schemas/user.schema";
 import { AuthCodes } from "../schemas/auth-codes";

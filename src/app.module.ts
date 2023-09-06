@@ -10,12 +10,15 @@ import { ThrottlerModule } from "@nestjs/throttler";
 import { MailModule } from "./mail/mail.module";
 import { BullModule } from "@nestjs/bull";
 import { ProfileModule } from "./profile/profile.module";
-import { AuthService } from "./auth/auth.service";
+import { ModuleModule } from "./module/module.module";
+import { UserModuleModule } from "./user-module/user-module.module";
 const redisUrl = new URL(process.env.REDIS_URL);
 
 @Module({
   imports: [
     MongooseModule.forRoot(config.mongoUrl),
+    ModuleModule,
+    UserModuleModule,
     RedisModule.forRoot({
       config: {
         url: config.redisUrl,

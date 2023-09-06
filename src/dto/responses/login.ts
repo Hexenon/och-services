@@ -1,4 +1,4 @@
-import { ObjectId } from "bson";
+import { ObjectId } from "mongoose";
 
 export interface ILoginResponse {
   token: string;

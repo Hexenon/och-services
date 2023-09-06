@@ -17,14 +17,14 @@ import {
   GenerateWalletDTO,
   WalletListDTO,
 } from "../dto/responses/wallet";
-import { AuthGuard } from "../resources/guards/auth.guard";
+import { LocalAuthGuard } from "../resources/guards/auth.guard";
 
 @Controller("wallet")
 export class WalletController {
   constructor(private walletService: WalletService) {}
 
   @Post("/generate")
-  @UseGuards(AuthGuard)
+  @UseGuards(LocalAuthGuard)
   async generateWallet(
     @Req() req: RequestWithTokenData,
     @Body() data: GenerateWalletDTO
@@ -47,7 +47,7 @@ export class WalletController {
   }
 
   @Put("/:id")
-  @UseGuards(AuthGuard)
+  @UseGuards(LocalAuthGuard)
   async editWallet(
     @Req() req: RequestWithTokenData,
     @Param("id") id: string,
@@ -68,7 +68,7 @@ export class WalletController {
   }
 
   @Get("/:id")
-  @UseGuards(AuthGuard)
+  @UseGuards(LocalAuthGuard)
   async findWalletById(
     @Req() req: RequestWithTokenData,
     @Param("id") id: string
@@ -82,7 +82,7 @@ export class WalletController {
   }
 
   @Get("/")
-  @UseGuards(AuthGuard)
+  @UseGuards(LocalAuthGuard)
   async getWallets(@Req() req: RequestWithTokenData): Promise<WalletListDTO[]> {
     const { user } = req;
     const wallets = this.walletService.getWalletsByUserId(user._id);
@@ -90,7 +90,7 @@ export class WalletController {
   }
 
   @Get("/export/:id")
-  @UseGuards(AuthGuard)
+  @UseGuards(LocalAuthGuard)
   async exportWallet(
     @Req() req: RequestWithTokenData,
     @Param("id") id: string

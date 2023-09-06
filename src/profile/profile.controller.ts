@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 import { LinkWalletDTO } from "../dto/validation/link-wallet";
-import { AuthGuard } from "../resources/guards/auth.guard";
+import { LocalAuthGuard } from "../resources/guards/auth.guard";
 import { RequestWithTokenData } from "../resources/types/auth";
 import { ProfileService } from "./profile.service";
 
@@ -8,12 +8,12 @@ import { ProfileService } from "./profile.service";
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
   @Get("/")
-  @UseGuards(AuthGuard)
+  @UseGuards(LocalAuthGuard)
   async getProfile(@Req() req: RequestWithTokenData) {
     return this.profileService.getProfile(req.user._id);
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(LocalAuthGuard)
   @Post("linkWallet")
   async linkWallet(
     @Req() req: RequestWithTokenData,
